@@ -1,326 +1,40 @@
+const fromCurrency = document.getElementById('fromCurrency');
+const toCurrency = document.getElementById('toCurrency');
+const amount = document.getElementById('amount');
+const result = document.getElementById('result');
 
-/* ==========================================
-   JOHN TERRY MBOMEH — PREMIUM PORTFOLIO THEME
-   Charcoal Black & Gold
-========================================== */
-
-:root {
-    --portfolio-gold: #d4af37;
-    --portfolio-gold-light: #f3d878;
-    --portfolio-dark: #101114;
-    --portfolio-card: #191b20;
-    --portfolio-text: #f5f5f5;
-    --portfolio-muted: #b8bbc3;
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 85px;
-}
-
-/* Main portfolio sections */
-body {
-    color: var(--portfolio-text);
-}
-
-/* Headings and highlighted text */
-section .title,
-.home .text-2,
-.home .text-3,
-.about .about-content .right .text,
-.services .title,
-.skills .title,
-.teams .title,
-.contact .title {
-    color: var(--portfolio-text);
-}
-
-.home .text-3 span,
-.about .about-content .right .text span,
-.services .serv-content .card .text,
-.skills .skills-content .right .text,
-.navbar .logo a span {
-    color: var(--portfolio-gold) !important;
-}
-
-/* Navigation */
-.navbar {
-    transition: all 0.3s ease;
-}
-
-.navbar.sticky {
-    background: rgba(16, 17, 20, 0.97) !important;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-    backdrop-filter: blur(12px);
-}
-
-.navbar .menu li a:hover,
-.navbar .menu li a:focus {
-    color: var(--portfolio-gold) !important;
-}
-
-/* Gold buttons */
-.home a,
-.about .about-content .right a,
-.contact .right form .button-area button,
-button[type="submit"] {
-    background: var(--portfolio-gold);
-    color: #111 !important;
-    border: 2px solid var(--portfolio-gold);
-    border-radius: 8px;
-    font-weight: 700;
-    transition: all 0.25s ease;
-}
-
-.home a:hover,
-.about .about-content .right a:hover,
-.contact .right form .button-area button:hover,
-button[type="submit"]:hover {
-    background: transparent;
-    color: var(--portfolio-gold) !important;
-    transform: translateY(-2px);
-}
-
-/* Section headings */
-section .title::before {
-    background: var(--portfolio-gold) !important;
-}
-
-section .title::after {
-    color: var(--portfolio-gold) !important;
-}
-
-/* Service cards */
-.services,
-.teams {
-    background: var(--portfolio-dark);
-}
-
-.services .serv-content .card,
-.teams .carousel .card {
-    background: var(--portfolio-card);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: 14px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.services .serv-content .card:hover,
-.teams .carousel .card:hover {
-    background: #22242a;
-    border-color: var(--portfolio-gold);
-    transform: translateY(-5px);
-}
-
-.services .serv-content .card .box i {
-    color: var(--portfolio-gold);
-}
-
-/* Skills progress bars */
-.skills .skills-content .left a {
-    background: var(--portfolio-gold);
-    color: #111 !important;
-    border-radius: 8px;
-}
-
-/* Forms */
-.contact .right form .fields input,
-.contact .right form .field textarea {
-    background: #191b20;
-    color: #fff;
-    border: 1px solid #393b42;
-    border-radius: 8px;
-}
-
-.contact .right form .fields input:focus,
-.contact .right form .field textarea:focus {
-    border-color: var(--portfolio-gold);
-    outline: none;
-}
-
-/* Footer */
-footer {
-    background: #08090b !important;
-    border-top: 1px solid rgba(212, 175, 55, 0.25);
-}
-
-footer span a {
-    color: var(--portfolio-gold) !important;
-}
-
-/* Donate popup */
-.donate-popup {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(6px);
-}
-
-.donate-popup .donate-content {
-    background: var(--portfolio-card);
-    color: var(--portfolio-text);
-    border: 1px solid var(--portfolio-gold);
-    border-radius: 14px;
-}
-
-/* Keyboard accessibility */
-a:focus-visible,
-button:focus-visible {
-    outline: 2px solid var(--portfolio-gold);
-    outline-offset: 4px;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 947px) {
-    .navbar .menu {
-        background: var(--portfolio-dark);
+// Fetch available currencies
+fetch('https://api.exchangerate-api.com/v4/latest/USD')
+  .then(response => response.json())
+  .then(data => {
+    const rates = data.rates;
+    for (const currency in rates) {
+      const option1 = document.createElement('option');
+      const option2 = document.createElement('option');
+      option1.value = currency;
+      option1.textContent = currency;
+      option2.value = currency;
+      option2.textContent = currency;
+      fromCurrency.appendChild(option1);
+      toCurrency.appendChild(option2);
     }
+  });
 
-    .navbar .menu li a {
-        color: #fff;
-    }
+// Convert currency
+function convertCurrency() {
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+  const convertAmount = amount.value;
 
-    .home .max-width,
-    section .max-width {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-
-@media (max-width: 500px) {
-    section {
-        padding: 70px 0;
-    }
-
-    section .title {
-        font-size: 30px;
-    }
-
-    .home .text-2 {
-        font-size: 35px;
-    }
-
-    .home .text-3 {
-        font-size: 22px;
-    }
-
-    .contact .right form .fields {
-        display: block;
-    }
-
-    .contact .right form .fields .field {
-        width: 100%;
-        margin-bottom: 12px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-/* =================================
-   MOBILE NAVIGATION MENU FIX
-================================= */
-
-@media screen and (max-width: 947px) {
-    .navbar {
-        position: relative;
-        z-index: 1000;
-        padding: 15px 0;
-    }
-
-    .navbar .max-width {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .navbar .logo {
-        max-width: calc(100% - 65px);
-    }
-
-    .navbar .logo a {
-        font-size: 25px;
-    }
-
-    .navbar .menu {
-        display: none;
-        list-style: none;
-        width: 100%;
-        margin-top: 15px;
-        padding: 15px 0;
-        background: #101114;
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        border-radius: 12px;
-        text-align: center;
-    }
-
-    .navbar .menu.active {
-        display: block !important;
-    }
-
-    .navbar .menu li {
-        display: block;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .navbar .menu li a {
-        display: block;
-        padding: 10px 15px;
-        color: #ffffff !important;
-        text-decoration: none;
-        font-size: 19px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .navbar .menu li:last-child a {
-        border-bottom: none;
-    }
-
-    .navbar .menu li a:hover {
-        color: #d4af37 !important;
-    }
-
-    .navbar .menu-btn {
-        display: block !important;
-        flex-shrink: 0;
-        cursor: pointer;
-        color: #111111;
-        background: #d4af37;
-        border: 2px solid #d4af37;
-        border-radius: 50px;
-        padding: 10px 17px;
-        font-size: 22px;
-        line-height: 1.2;
-        box-shadow: none;
-    }
-
-    .navbar .menu-btn:hover {
-        background: #f3d878;
-    }
-
-    .navbar .menu-btn i {
-        color: #111111;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .navbar .logo a {
-        font-size: 21px;
-    }
-
-    .navbar .menu li a {
-        font-size: 17px;
-    }
+  fetch(`https://api.exchangerate-api.com/v4/latest/${from}`)
+    .then(response => response.json())
+    .then(data => {
+      const rate = data.rates[to];
+      const convertedAmount = convertAmount * rate;
+      result.textContent = `${convertAmount} ${from} = ${convertedAmount.toFixed(2)} ${to}`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      result.textContent = 'An error occurred or check your internet and Please try again.';
+    });
 }

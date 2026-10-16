@@ -224,3 +224,103 @@ button:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+/* =================================
+   MOBILE NAVIGATION MENU FIX
+================================= */
+
+@media screen and (max-width: 947px) {
+    .navbar {
+        position: relative;
+        z-index: 1000;
+        padding: 15px 0;
+    }
+
+    .navbar .max-width {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .navbar .logo {
+        max-width: calc(100% - 65px);
+    }
+
+    .navbar .logo a {
+        font-size: 25px;
+    }
+
+    .navbar .menu {
+        display: none;
+        list-style: none;
+        width: 100%;
+        margin-top: 15px;
+        padding: 15px 0;
+        background: #101114;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .navbar .menu.active {
+        display: block !important;
+    }
+
+    .navbar .menu li {
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #ffffff !important;
+        text-decoration: none;
+        font-size: 19px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .navbar .menu li:last-child a {
+        border-bottom: none;
+    }
+
+    .navbar .menu li a:hover {
+        color: #d4af37 !important;
+    }
+
+    .navbar .menu-btn {
+        display: block !important;
+        flex-shrink: 0;
+        cursor: pointer;
+        color: #111111;
+        background: #d4af37;
+        border: 2px solid #d4af37;
+        border-radius: 50px;
+        padding: 10px 17px;
+        font-size: 22px;
+        line-height: 1.2;
+        box-shadow: none;
+    }
+
+    .navbar .menu-btn:hover {
+        background: #f3d878;
+    }
+
+    .navbar .menu-btn i {
+        color: #111111;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar .logo a {
+        font-size: 21px;
+    }
+
+    .navbar .menu li a {
+        font-size: 17px;
+    }
+}
